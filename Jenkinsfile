@@ -3,7 +3,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                script {
+                    // Pull from another repository and the 'main' branch
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: 'main']],
+                        userRemoteConfigs: [[url: 'https://github.com/animesh0406/notes-pipeline.git']]
+                    ])
+                }
             }
         }
         
